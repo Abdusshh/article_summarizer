@@ -23,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-w%308dcvg4_l7xa-a3w5=d6$10weh3-j#@%-d_*+kue==cq!e#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
+CSRF_TRUSTED_ORIGINS = ['https://article-summarizer-eight-taupe.vercel.app']
 
 # Application definition
 
