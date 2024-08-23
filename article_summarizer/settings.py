@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "summarizer",
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,14 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Environment variables
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+QSTASH_TOKEN = os.getenv('QSTASH_TOKEN')
+DEPLOYMENT_URL = os.getenv('DEPLOYMENT_URL')

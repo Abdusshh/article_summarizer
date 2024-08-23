@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarize Article</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/1504/1504569.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-image: url('https://static.vecteezy.com/system/resources/previews/003/047/634/original/abstract-white-fluid-wave-background-free-vector.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        input, textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #08CB91;
+            color: #f0f0f0;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #6BE0BD;
+        }
+        .notification {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: normal;
+            font-family: Helvetica Neue, sans-serif;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .footer img {
+            vertical-align: middle;
+            width: 100px;
+        }
+        textarea {
+            resize: vertical;
+            max-height: 250px;
+            min-height: 40px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        small {
+            font-size: 12px;
+            color: #666;
+            display: block;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Summarize an Article</h1>
+        <form method="post" action="{% url 'summarize_article' %}">
+            {% csrf_token %}
+            <label for="content">Article:</label>
+            <textarea id="content" name="content" placeholder="Your article content here" required></textarea>
+            
+            <label for="to_email">To Email:</label>
+            <input type="email" id="to_email" name="to_email" placeholder="recipient@example.com" required>
+
+            <label for="subject">Email Subject:</label>
+            <input type="text" id="subject" name="subject" placeholder="Your email subject here" required>
+            
+            <button type="submit">Summarize!</button>
+        </form>
+
+        {% if email_scheduled %}
+            <div class="notification" id="notification">Request sent successfully!</div>
+        {% endif %}
+        {% if error %}
+            <div class="notification" id="notification">{{ error }}</div>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        <p>Powered by  
+            <a href="https://www.upstash.com" target="_blank">
+              <img src="https://upstash.com/logo/upstash-white-bg.svg" alt="Upstash Logo">
+            </a> 
+        </p>
+    </div>
+</body>
+</html>
