@@ -14,3 +14,6 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "article_summarizer.settings")
 
 application = get_wsgi_application()
+
+# this is the entry point for the WSGI server to serve the Django application
+app = application
