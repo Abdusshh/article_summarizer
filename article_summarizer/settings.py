@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-w%308dcvg4_l7xa-a3w5=d6$10weh3-j#@%-d_*+kue==cq!e#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
@@ -133,3 +133,5 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 QSTASH_TOKEN = os.getenv('QSTASH_TOKEN')
 DEPLOYMENT_URL = os.getenv('DEPLOYMENT_URL')
+
+APPEND_SLASH = False
