@@ -27,7 +27,7 @@ def summarize_article_view(request):
         article_content = request.POST.get('content')
 
         # Define your callback URL, passing necessary email details to the callback
-        callback_url = f'{settings.DEPLOYMENT_URL}?to_email={to_email}&subject={subject}'
+        callback_url = f'{settings.DEPLOYMENT_URL}/callback?to_email={to_email}&subject={subject}'
 
         # Publish to QStash/OpenAI
         response = publish_message_to_openai(article_content, callback_url)

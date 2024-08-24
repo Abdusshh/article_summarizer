@@ -27,8 +27,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['https://article-summarizer-eight-taupe.vercel.app']
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -136,3 +134,5 @@ QSTASH_TOKEN = os.getenv('QSTASH_TOKEN')
 DEPLOYMENT_URL = os.getenv('DEPLOYMENT_URL')
 
 APPEND_SLASH = False
+
+CSRF_TRUSTED_ORIGINS = [DEPLOYMENT_URL]

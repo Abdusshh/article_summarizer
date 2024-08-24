@@ -17,6 +17,7 @@ def publish_message_to_openai(article_content, callback_url):
             ],
         },
         callback=callback_url,
-        headers={"Retry-After": "60"},
+        headers={"Retry-After": "60",
+                 "Upstash-Callback-Forward-Referer": settings.DEPLOYMENT_URL}, # Forward the referer header to the callback URL
     )
     return response
