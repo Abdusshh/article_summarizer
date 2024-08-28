@@ -14,7 +14,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-from .utils.services import publish_message_to_openai
+from .utils.services import publish_message_to_openai, publish_to_openai_with_restapi, completion_with_meta_llama
 from .utils.email_services import send_email
 from django.conf import settings
 
@@ -30,7 +30,7 @@ def summarize_article_view(request):
         callback_url = f'{settings.DEPLOYMENT_URL}/callback?to_email={to_email}&subject={subject}'
 
         # Publish to QStash/OpenAI
-        response = publish_message_to_openai(article_content, callback_url)
+        response = publish_to_openai_with_restapi(article_content, callback_url)
 
         print(response)
 
@@ -66,10 +66,18 @@ def openai_callback_view(request):
         # Send the summary via email
         response = send_email(to_email, subject, summary)
 
+
         return JsonResponse({'status': 'Email sent', 'response': response.status_code})
     
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
+from django.middleware.csrf import get_token
+from django.http import JsonResponse
+
+def get_csrf_token_view(request):
+    # This will ensure that the token is set for the session
+    csrf_token = get_token(request)
+    return JsonResponse({"csrf_token": csrf_token})
 
 
 # def submit_article(request):
