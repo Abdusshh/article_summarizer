@@ -40,6 +40,7 @@ def publish_to_openai_with_restapi(article_content, callback_url):
     'Upstash-Method': 'POST',
     'Upstash-Retries': '3',
     'Upstash-Callback-Forward-Referer': 'https://qstash.upstash.io',
+    'Upstash-Callback-Forward-X-CSRFToken': csrf_token,
     'Retry-After': '60',
     'Upstash-Callback': callback_url,
 }
