@@ -23,12 +23,14 @@ def openai_callback_view(request):
         # Extract the summary from the decoded OpenAI response
         summary = decoded_data['choices'][0]['message']['content']
 
-        # Extract the email and subject from the query parameters
-        to_email = request.GET.get('to_email')
-        subject = request.GET.get('subject')
+        print(summary)
+
+        # # Extract the email and subject from the query parameters
+        # to_email = request.GET.get('to_email')
+        # subject = request.GET.get('subject')
 
         # Send the summary via email
-        response = send_email(to_email, subject, summary)
+        # response = send_email(to_email, subject, summary)
 
 
         return JsonResponse({'status': 'Email sent', 'response': response.status_code})
