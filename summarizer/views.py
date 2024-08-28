@@ -3,7 +3,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-from .utils.services import publish_message_to_openai, publish_to_openai_with_restapi, completion_with_meta_llama
+from .utils.services import publish_message_to_openai
 from .utils.email_services import send_email
 from django.conf import settings
 
@@ -23,14 +23,12 @@ def openai_callback_view(request):
         # Extract the summary from the decoded OpenAI response
         summary = decoded_data['choices'][0]['message']['content']
 
-        print(summary)
-
-        # # Extract the email and subject from the query parameters
-        # to_email = request.GET.get('to_email')
-        # subject = request.GET.get('subject')
+        # Extract the email and subject from the query parameters
+        to_email = request.GET.get('to_email')
+        subject = request.GET.get('subject')
 
         # Send the summary via email
-        # response = send_email(to_email, subject, summary)
+        response = send_email(to_email, subject, summary)
 
 
         return JsonResponse({'status': 'Email sent', 'response': response.status_code})
@@ -49,7 +47,7 @@ def summarize_article_view(request):
         callback_url = f'{settings.DEPLOYMENT_URL}/callback?to_email={to_email}&subject={subject}'
 
         # Publish to QStash/OpenAI
-        response = publish_to_openai_with_restapi(article_content, callback_url)
+        response = publish_message_to_openai(article_content, callback_url)
 
         print(response)
 
