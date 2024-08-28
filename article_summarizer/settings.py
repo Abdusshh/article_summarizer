@@ -135,7 +135,7 @@ DEPLOYMENT_URL = os.getenv('DEPLOYMENT_URL')
 
 APPEND_SLASH = False
 
-CSRF_TRUSTED_ORIGINS = [DEPLOYMENT_URL, 'https://qstash.upstash.io']
+CSRF_TRUSTED_ORIGINS = [DEPLOYMENT_URL, 'https://qstash.upstash.io', 'http://qstash.upstash.io']
 
 CSRF_CHECK_REFERER = False
 CORS_ALLOW_CREDENTIALS = False
