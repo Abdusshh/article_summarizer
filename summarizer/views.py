@@ -1,14 +1,3 @@
-# from django.shortcuts import render, redirect
-# from qstash import QStash
-# from qstash.chat import openai
-# from django.conf import settings
-# from django.views.decorators.csrf import csrf_exempt
-# from django.http import JsonResponse
-# import json
-# import base64
-# import time
-
-
 import base64
 import json
 from django.http import JsonResponse
@@ -17,31 +6,6 @@ from django.shortcuts import render
 from .utils.services import publish_message_to_openai, publish_to_openai_with_restapi, completion_with_meta_llama
 from .utils.email_services import send_email
 from django.conf import settings
-
-@csrf_exempt
-def summarize_article_view(request):
-    if request.method == 'POST':
-        # Handle form submission
-        to_email = request.POST.get('to_email')
-        subject = request.POST.get('subject')
-        article_content = request.POST.get('content')
-
-        # Define your callback URL, passing necessary email details to the callback
-        callback_url = f'{settings.DEPLOYMENT_URL}/callback?to_email={to_email}&subject={subject}'
-
-        # Publish to QStash/OpenAI
-        response = publish_to_openai_with_restapi(article_content, callback_url)
-
-        print(response)
-
-        if response:
-            return render(request, 'summarizer/index.html', {'email_scheduled': True})
-        else:
-            return render(request, 'summarizer/index.html', {'error': 'Failed to send summary.'})
-    
-    # If GET request, render the form
-    return render(request, 'summarizer/index.html')
-
 
 @csrf_exempt
 def openai_callback_view(request):
@@ -70,6 +34,31 @@ def openai_callback_view(request):
         return JsonResponse({'status': 'Email sent', 'response': response.status_code})
     
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+@csrf_exempt
+def summarize_article_view(request):
+    if request.method == 'POST':
+        # Handle form submission
+        to_email = request.POST.get('to_email')
+        subject = request.POST.get('subject')
+        article_content = request.POST.get('content')
+
+        # Define your callback URL, passing necessary email details to the callback
+        callback_url = f'{settings.DEPLOYMENT_URL}/callback?to_email={to_email}&subject={subject}'
+
+        # Publish to QStash/OpenAI
+        response = publish_to_openai_with_restapi(article_content, callback_url)
+
+        print(response)
+
+        if response:
+            return render(request, 'summarizer/index.html', {'email_scheduled': True})
+        else:
+            return render(request, 'summarizer/index.html', {'error': 'Failed to send summary.'})
+    
+    # If GET request, render the form
+    return render(request, 'summarizer/index.html')
+
 
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
