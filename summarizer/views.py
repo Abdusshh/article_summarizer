@@ -30,7 +30,7 @@ def redis_callback_view(request):
         
         # Save the summary to Redis
         redis = Redis.from_env()
-        redis.set(f"summary:{article_id}", summary)
+        redis.set(f"summary_{article_id}", summary)
 
         return JsonResponse({'status': 'Summary saved to Redis'})
     
