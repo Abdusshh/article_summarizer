@@ -6,6 +6,36 @@ from django.shortcuts import render
 from .utils.services import publish_message_to_openai
 from .utils.email_services import send_email
 from django.conf import settings
+from upstash_redis import Redis
+
+
+@csrf_exempt
+def redis_callback_view(request):
+    if request.method == 'POST':
+        # Parse the request body
+        data = json.loads(request.body)
+
+        # Decode the base64-encoded 'body' field from the callback
+        encoded_body = data.get('body', '')
+        decoded_body = base64.b64decode(encoded_body).decode('utf-8')
+
+        # Parse the decoded body to JSON format
+        decoded_data = json.loads(decoded_body)
+
+        # Extract the summary from the decoded OpenAI response
+        summary = decoded_data['choices'][0]['message']['content']
+
+        # Extract the article ID from the query parameters
+        article_id = request.GET.get('article_id')
+        
+        # Save the summary to Redis
+        redis = Redis.from_env()
+        redis.set(f"summary:{article_id}", summary)
+
+        return JsonResponse({'status': 'Summary saved to Redis'})
+    
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+        
 
 @csrf_exempt
 def openai_callback_view(request):
