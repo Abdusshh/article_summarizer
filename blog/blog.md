@@ -2,7 +2,7 @@
 
 title: "Managing Rate Limits and Parallelism with QStash"
 slug: article-summarizer-qstash-python
-authors: [Abdullah Enes Güleş]
+authors: [abdullahenes]
 tags: [qstash, python, retry-after, django, redis, llm, vercel]
 ---
 
@@ -101,7 +101,7 @@ UPSTASH_REDIS_REST_TOKEN = os.getenv('UPSTASH_REDIS_REST_TOKEN')
 
 Finally add the following line to the `wsgi.py` file to expose the application to Vercel:
 
-```python
+```python title:"article_summarizer/wsgi.py"
 app = application
 ```
 
