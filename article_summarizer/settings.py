@@ -129,7 +129,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 QSTASH_TOKEN = os.getenv('QSTASH_TOKEN')
 DEPLOYMENT_URL = os.getenv('DEPLOYMENT_URL')
 UPSTASH_REDIS_REST_URL = os.getenv('UPSTASH_REDIS_REST_URL')

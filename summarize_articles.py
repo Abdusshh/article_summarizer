@@ -2,7 +2,7 @@
 # We will summarize these articles using qstash queues
 from upstash_redis import Redis
 from qstash import QStash
-from qstash.chat import openai
+from qstash.chat import upstash
 from dotenv import load_dotenv
 import os
 
@@ -18,9 +18,9 @@ for i in range(1, 1001):
 
     result = qstash_client.message.enqueue_json(
         queue="articles-queue",
-        api={"name": "llm", "provider": openai(os.getenv("OPENAI_API_KEY"))},
+        api={"name": "llm", "provider": upstash()},
         body={
-            "model": "gpt-3.5-turbo",
+            "model": "meta-llama/Meta-Llama-3-8B-Instruct",
             "messages": [
                 {
                     "role": "user",
@@ -29,7 +29,6 @@ for i in range(1, 1001):
             ],
         },
         callback=f'{os.getenv("DEPLOYMENT_URL")}/redis-callback?article_id={i}',
-        headers={"Retry-After": "60",},
     )
 
 print(result)

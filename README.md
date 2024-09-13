@@ -1,6 +1,6 @@
 # Article Summarizer
 
-This project is an article summarizer that allows you to summarize articles using OpenAI's GPT 3.5 LLM.
+This project is an article summarizer that allows you to summarize articles using Meta's Llama.
 
 ## Installation
 
@@ -44,9 +44,7 @@ This project is an article summarizer that allows you to summarize articles usin
 
 6. Set the required environment variables:
 
-    Replace `OPENAI_API_KEY`, `QSTASH_TOKEN`, `DEPLOYMENT_URL`, `UPSTASH_REDIS_REST_URL`, and `UPSTASH_REDIS_REST_TOKEN` with your own values.
-
-    You can find the `OPENAI_API_KEY` in your OpenAI account.
+    Replace `QSTASH_TOKEN`, `DEPLOYMENT_URL`, `UPSTASH_REDIS_REST_URL`, and `UPSTASH_REDIS_REST_TOKEN` with your own values.
 
     You can find the `QSTASH_TOKEN`, `UPSTASH_REDIS_REST_URL`, and `UPSTASH_REDIS_REST_TOKEN` in your Upstash account.
 
